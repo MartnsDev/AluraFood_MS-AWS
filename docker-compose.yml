@@ -1,17 +1,13 @@
-version: "3.9"
-
 services:
 
-  # EUREKA SERVER
   server:
     image: martnsdev/server-eureka:1.0
     container_name: server
     ports:
-      - "8081:8080"   # HOST:8081 -> CONTAINER:8080
+      - "8081:8080"
     networks:
       - alurafood-net
 
-  # MYSQL
   mysql:
     image: martnsdev/mysql-ms:1.0
     container_name: mysql-ms
@@ -19,13 +15,12 @@ services:
       MYSQL_ROOT_PASSWORD: 5517
       MYSQL_DATABASE: alurafood
     ports:
-      - "3306:3306"   # opcional 
+      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
       - alurafood-net
 
-  # PEDIDOS MS
   pedidos:
     image: martnsdev/pedidos-ms:1.3
     container_name: pedidos-ms
@@ -42,7 +37,6 @@ services:
     networks:
       - alurafood-net
 
-  # PAGAMENTOS MS
   pagamentos:
     image: martnsdev/pagamentos-ms:1.0
     container_name: pagamentos-ms
@@ -59,7 +53,6 @@ services:
     networks:
       - alurafood-net
 
-  # GATEWAY
   gateway:
     image: martnsdev/gateway-ms:1.0
     container_name: gateway-ms
@@ -75,11 +68,10 @@ services:
       - alurafood-net
 
 
-# VOLUMES
 volumes:
   mysql_data:
 
 
-# NETWORKnetworks:
+networks:
   alurafood-net:
     driver: bridge
