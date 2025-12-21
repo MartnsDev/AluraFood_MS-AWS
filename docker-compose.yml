@@ -22,7 +22,7 @@ services:
       - alurafood-net
 
   pedidos:
-    image: martnsdev/pedidos-ms:1.4
+    image: martnsdev/pedidos-ms:1.5
     container_name: pedidos-ms
     depends_on:
       - mysql
@@ -38,7 +38,7 @@ services:
       - alurafood-net
 
   pagamentos:
-    image: martnsdev/pagamentos-ms:1.0
+    image: martnsdev/pagamentos-ms:1.1
     container_name: pagamentos-ms
     depends_on:
       - mysql
