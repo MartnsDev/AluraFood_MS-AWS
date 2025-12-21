@@ -22,7 +22,7 @@ services:
       - alurafood-net
 
   pedidos:
-    image: martnsdev/pedidos-ms:1.3
+    image: martnsdev/pedidos-ms:1.4
     container_name: pedidos-ms
     depends_on:
       - mysql
