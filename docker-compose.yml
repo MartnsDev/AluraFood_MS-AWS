@@ -2,6 +2,16 @@ version: "3.9"
 
 services:
 
+  # EUREKA SERVER
+  server:
+    image: martnsdev/server-eureka:1.0
+    container_name: server
+    ports:
+      - "8081:8080"   # HOST:8081 -> CONTAINER:8080
+    networks:
+      - alurafood-net
+
+  # MYSQL
   mysql:
     image: martnsdev/mysql-ms:1.0
     container_name: mysql-ms
@@ -9,38 +19,67 @@ services:
       MYSQL_ROOT_PASSWORD: 5517
       MYSQL_DATABASE: alurafood
     ports:
-      - "3306:3306"
+      - "3306:3306"   # opcional 
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - alurafood-net
 
+  # PEDIDOS MS
   pedidos:
     image: martnsdev/pedidos-ms:1.3
     container_name: pedidos-ms
     depends_on:
       - mysql
+      - server
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/alurafood
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: 5517
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8080/eureka
     ports:
-      - "8081:8080"
+      - "8082:8080"
+    networks:
+      - alurafood-net
 
+  # PAGAMENTOS MS
   pagamentos:
     image: martnsdev/pagamentos-ms:1.0
     container_name: pagamentos-ms
     depends_on:
       - mysql
+      - server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/alurafood
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 5517
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8080/eureka
     ports:
-      - "8082:8080"
+      - "8083:8080"
+    networks:
+      - alurafood-net
 
+  # GATEWAY
   gateway:
     image: martnsdev/gateway-ms:1.0
     container_name: gateway-ms
     depends_on:
+      - server
       - pedidos
       - pagamentos
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8080/eureka
     ports:
       - "8080:8080"
+    networks:
+      - alurafood-net
 
+
+# VOLUMES
 volumes:
   mysql_data:
+
+
+# NETWORKnetworks:
+  alurafood-net:
+    driver: bridge
