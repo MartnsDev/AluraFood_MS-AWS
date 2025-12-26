@@ -3,9 +3,19 @@
 Projeto desenvolvido por **Matheus Martins** como parte dos estudos em **arquitetura de microsserviços com Java e Spring Boot**, baseado no curso **Microsserviços na prática implementando com Java e Spring** da Alura.
 
 O foco deste projeto é entender como microsserviços se comunicam, como são organizados e como o ecossistema Spring ajuda a resolver problemas reais de sistemas distribuídos.
-
 ---
-
+## 🚀 Tecnologias Utilizadas
+```
+- Java 17+
+- Spring Boot
+- Spring Cloud (Eureka, Gateway)
+- Resilience4J
+- MySQL
+- Maven
+- Git e GitHub
+- Docker 
+```
+---
 ## Objetivos do Projeto
 
 Aplicar, na prática, os principais conceitos de **arquitetura de microsserviços** utilizando o ecossistema Spring.
@@ -20,7 +30,6 @@ Principais objetivos:
 ```
 ---
 ## 🧩 Arquitetura Implementada
-
 A arquitetura do projeto é composta pelos seguintes componentes:
 
 ### 🔹 Microsserviço de Pagamentos
@@ -53,20 +62,6 @@ A arquitetura do projeto é composta pelos seguintes componentes:
 - Tratamento de falhas entre serviços
 ```
 ---
-## 🚀 Tecnologias Utilizadas
-```
-- Java 17+
-- Spring Boot
-- Spring Cloud (Eureka, Gateway)
-- Resilience4J
-- MySQL
-- Maven
-- Git e GitHub
-- Docker 
-```
----
-
-
 
 ## 📚 Contexto do Projeto
 
