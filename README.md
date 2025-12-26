@@ -143,7 +143,8 @@ Exemplo para o microsserviço de pedidos:
 docker build -t martnsdev/pedidos-ms:1.0 .
 ```
 Utilize o seu próprio usuário do Docker Hub.
-
+![Docker Hub - Repositorios](Img/Docker-Repositories.png)
+Clique em criar repositório.
 Padrão adotado para nomear as imagens:
 ```
 usuario-docker/nome-do-servico:versao
