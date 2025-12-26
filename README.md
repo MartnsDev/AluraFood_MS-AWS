@@ -4,10 +4,68 @@
 
 Projeto desenvolvido por **Matheus Martins** como parte dos estudos em **arquitetura de microsserviços com Java e Spring**, baseado no curso **“Microsserviços na prática: implementando com Java e Spring”** da **Alura**.
 
-Este repositório tem finalidade **educacional**, servindo como ambiente prático para aplicar conceitos reais de microsserviços, comunicação entre serviços, service discovery, API Gateway e resiliência.
-
+Este repositório tem finalidade **educacional** servindo como ambiente prático para aplicar conceitos reais de microsserviços, comunicação entre serviços, service discovery, API Gateway e resiliência.
 ---
 
+##  Objetivos do Projeto
+
+Aplicar, na prática, os principais conceitos de **arquitetura de microsserviços** utilizando o ecossistema Spring.
+
+Principais objetivos:
+```
+- Decompor um sistema monolítico em microsserviços
+- Garantir responsabilidade única por serviço
+- Implementar comunicação síncrona entre serviços
+- Utilizar service discovery e API Gateway
+- Trabalhar tolerância a falhas e resiliência
+```
+---
+
+## 🧩 Arquitetura Implementada
+
+A arquitetura do projeto é composta pelos seguintes componentes:
+
+### 🔹 Microsserviço de Pagamentos
+```
+- API REST com Spring Boot
+- Banco de dados próprio utilizando MySQL
+- Responsável pelo processamento de pagamentos
+```
+### 🔹 Microsserviço de Pedidos
+```
+- Comunicação síncrona com o serviço de pagamentos
+- Balanceamento de carga entre múltiplas instâncias
+- Integração via Service Discovery
+```
+### 🔹 Service Discovery
+```
+- Implementado com Eureka (Spring Cloud Netflix)
+- Registro e descoberta automática dos microsserviços
+```
+### 🔹 API Gateway
+- Implementado com Spring Cloud Gateway
+- Ponto único de entrada da aplicação
+- Centraliza o roteamento das requisições
+```
+### 🔹 Resiliência
+- Implementação de Circuit Breaker e Fallback
+- Utilização do Resilience4J
+- Tratamento de falhas entre serviços
+```
+---
+
+## 🚀 Tecnologias Utilizadas
+```
+- Java 17+
+- Spring Boot
+- Spring Cloud (Eureka, Gateway)
+- Resilience4J
+- MySQL
+- Maven
+- Git e GitHub
+- Docker 
+```
+---
 ## 📚 Contexto do Projeto
 
 O projeto faz parte da formação de **Microsserviços com Spring** da Alura e parte de um cenário onde a aplicação **Alura Food** era originalmente um **monólito**, passando por um processo de decomposição em microsserviços.
@@ -21,62 +79,6 @@ Cursos que fundamentam este projeto:
 
 ---
 
-## 🔨 Objetivos do Projeto
-
-Aplicar, na prática, os principais conceitos de **arquitetura de microsserviços** utilizando o ecossistema Spring.
-
-Principais objetivos:
-
-- Decompor um sistema monolítico em microsserviços
-- Garantir responsabilidade única por serviço
-- Implementar comunicação síncrona entre serviços
-- Utilizar service discovery e API Gateway
-- Trabalhar tolerância a falhas e resiliência
-
----
-
-## 🧩 Arquitetura Implementada
-
-A arquitetura do projeto é composta pelos seguintes componentes:
-
-### 🔹 Microsserviço de Pagamentos
-- API REST com Spring Boot
-- Banco de dados próprio utilizando MySQL
-- Responsável pelo processamento de pagamentos
-
-### 🔹 Microsserviço de Pedidos
-- Comunicação síncrona com o serviço de pagamentos
-- Balanceamento de carga entre múltiplas instâncias
-- Integração via Service Discovery
-
-### 🔹 Service Discovery
-- Implementado com Eureka (Spring Cloud Netflix)
-- Registro e descoberta automática dos microsserviços
-
-### 🔹 API Gateway
-- Implementado com Spring Cloud Gateway
-- Ponto único de entrada da aplicação
-- Centraliza o roteamento das requisições
-
-### 🔹 Resiliência
-- Implementação de Circuit Breaker e Fallback
-- Utilização do Resilience4J
-- Tratamento de falhas entre serviços
-
----
-
-## 🚀 Tecnologias Utilizadas
-
-- Java 17+
-- Spring Boot
-- Spring Cloud (Eureka, Gateway)
-- Resilience4J
-- MySQL
-- Maven
-- Git e GitHub
-
----
-
 ## ⚠️ Aviso
 
 Este projeto foi desenvolvido **exclusivamente para fins de estudo**.  
@@ -85,9 +87,9 @@ Não representa um sistema pronto para produção sem ajustes adicionais de segu
 ---
 
 ## 📄 Licença
-
-Este projeto utiliza o conteúdo educacional da **Alura**, respeitando sua **licença educacional**.
-
+```sEste projeto utiliza o conteúdo educacional da Alura, respeitando sua licença educacional
 O código foi desenvolvido por **Matheus Martins** durante o processo de aprendizado, com base nos cursos da plataforma Alura.
+```
 
 
+```
