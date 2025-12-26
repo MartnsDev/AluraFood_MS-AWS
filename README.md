@@ -144,13 +144,12 @@ docker build -t martnsdev/pedidos-ms:1.0 .
 ```
 Utilize o seu próprio usuário do Docker Hub.
 ![Docker Hub - Repositorios](Img/Docker-Repositories.png)
-Clique em criar repositório.
 Padrão adotado para nomear as imagens:
 ```
 usuario-docker/nome-do-servico:versao
 ```
 
-Repita esse processo para todos os microsserviços.
+Repiti esse processo para todos os microsserviços.
 
 ---
 
@@ -293,6 +292,12 @@ Pagamentos:
 ```
 http://localhost:8083
 ```
+Após rodar o projeto, abra o EurekaServer:
+```
+http://localhost:8081
+```
+![Eureka Server](Img/Eureka-server.png)
+
 ---
 
 ## ⏹️ Parando o Ambiente
@@ -301,6 +306,7 @@ Para parar os containers:
 ```
 docker compose down
 ```
+
 Para remover também os volumes e dados do banco:
 ```
 docker compose down -v
