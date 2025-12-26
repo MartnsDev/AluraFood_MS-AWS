@@ -1,5 +1,3 @@
-![Microsserviços com Java e Spring](https://user-images.githubusercontent.com/66698429/169815319-20640ad4-cda0-4868-9728-d380c5fcc799.png)
-
 # Microsserviços com Java e Spring Boot – Alura Food
 
 Projeto desenvolvido por **Matheus Martins** como parte dos estudos em **arquitetura de microsserviços com Java e Spring Boot**, baseado no curso **Microsserviços na prática implementando com Java e Spring** da Alura.
@@ -80,7 +78,7 @@ Cursos que fundamentam este projeto:
 - [Microsserviços: padrões de projeto](https://cursos.alura.com.br/course/microsservicos-padroes-projeto)
 - [Fundamentos de Microsserviços](https://cursos.alura.com.br/course/fundamentos-microsservicos-aprofundando-conceitos)
 - [Microsserviços na prática: entendendo a tomada de decisões](https://cursos.alura.com.br/course/Microsservicos-pratica-tomada-decisoes)
-
+![Microsserviços com Java e Spring](https://user-images.githubusercontent.com/66698429/169815319-20640ad4-cda0-4868-9728-d380c5fcc799.png)
 ---
 
 ## ⚠️ Aviso
