@@ -76,7 +76,7 @@ java --version
 
 Cada microsserviço deve gerar seu próprio arquivo JAR antes da criação da imagem Docker.
 
-Na raiz de cada serviço, execute:
+Na raiz de cada serviço, executei:
 ```
 ./mvnw clean package
 ```
@@ -136,20 +136,20 @@ Esse Dockerfile cria uma imagem com Java 17 e executa a aplicação Spring Boot.
 
 ## 📦 Build da Imagem Docker
 
-Com o JAR gerado, crie a imagem Docker do serviço.
+Com o JAR gerado, criei uma imagem Docker do serviço.
 
 Exemplo para o microsserviço de pedidos:
 ```
 docker build -t martnsdev/pedidos-ms:1.0 .
 ```
-Utilize o seu próprio usuário do Docker Hub.
+Utilizei o seu próprio usuário do Docker Hub.
 ![Docker Hub - Repositorios](Img/Docker-Repositories.png)
 Padrão adotado para nomear as imagens:
 ```
 usuario-docker/nome-do-servico:versao
 ```
 
-Repiti esse processo para todos os microsserviços.
+Repeti esse processo para todos os microsserviços.
 
 ---
 
@@ -159,16 +159,16 @@ Antes de enviar as imagens, faça login no Docker Hub:
 ```
 docker login
 ```
-Informe seu usuário e senha.
-Caso logue com GitHub, precisará criar um token de acesso: 
-![Logar no docker — GitHub](Img/Login-dockerHub-with-github.png)
-Clique em Gerar novo token com opção de Read & Write.
+Informei meu usuário e senha.
+Precisei logar com GitHub,então criei um token de acesso: 
+![Logar no Docker — GitHub](Img/Login-dockerHub-with-github.png)
+Read & Write.
 
 ---
 
 ## 🚀 Push das Imagens para o Docker Hub
 
-Após o build, envie as imagens:
+Após o build, enviei as imagens:
 ```
 docker push martnsdev/server-eureka:1.0
 docker push martnsdev/mysql-ms:1.0
