@@ -1,9 +1,10 @@
 # Microsserviços com Java e Spring Boot – Alura Food
 
-Projeto desenvolvido por **Matheus Martins** como parte dos estudos em **arquitetura de microsserviços com Java e Spring Boot**, baseado no curso **Microsserviços na prática implementando com Java e Spring** da Alura.
-
-O foco deste projeto é entender como microsserviços se comunicam, como são organizados e como o ecossistema Spring ajuda a resolver problemas reais de sistemas distribuídos.
+```
+O foco deste projeto é compreender, na prática, como microsserviços se comunicam entre si, como são organizados e como o ecossistema Spring ajuda a resolver desafios reais de sistemas distribuídos.
+```
 ---
+
 ## 🚀 Tecnologias Utilizadas
 ```
 - Java 17+
