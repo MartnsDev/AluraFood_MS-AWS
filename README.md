@@ -2,11 +2,8 @@
 
 # Microsserviços com Java e Spring Boot – Alura Food
 
-Projeto desenvolvido por **Matheus Martins** como parte dos estudos em **arquitetura de microsserviços com Java e Spring**, baseado no curso **“Microsserviços na prática: implementando com Java e Spring”** da **Alura**.
-
-Este repositório tem finalidade **educacional** servindo como ambiente prático para aplicar conceitos reais de microsserviços, comunicação entre serviços, service discovery, API Gateway e resiliência.
+Projeto desenvolvido por **Matheus Martins** como parte dos estudos em **arquitetura de microsserviços com Java e Spring**, baseado no curso **“Microsserviços na prática: implementando com Java e Spring”** da Alura.
 ---
-
 ##  Objetivos do Projeto
 
 Aplicar, na prática, os principais conceitos de **arquitetura de microsserviços** utilizando o ecossistema Spring.
@@ -20,7 +17,6 @@ Principais objetivos:
 - Trabalhar tolerância a falhas e resiliência
 ```
 ---
-
 ## 🧩 Arquitetura Implementada
 
 A arquitetura do projeto é composta pelos seguintes componentes:
@@ -43,17 +39,18 @@ A arquitetura do projeto é composta pelos seguintes componentes:
 - Registro e descoberta automática dos microsserviços
 ```
 ### 🔹 API Gateway
+```
 - Implementado com Spring Cloud Gateway
 - Ponto único de entrada da aplicação
 - Centraliza o roteamento das requisições
 ```
 ### 🔹 Resiliência
+```
 - Implementação de Circuit Breaker e Fallback
 - Utilização do Resilience4J
 - Tratamento de falhas entre serviços
 ```
 ---
-
 ## 🚀 Tecnologias Utilizadas
 ```
 - Java 17+
@@ -66,6 +63,9 @@ A arquitetura do projeto é composta pelos seguintes componentes:
 - Docker 
 ```
 ---
+
+
+
 ## 📚 Contexto do Projeto
 
 O projeto faz parte da formação de **Microsserviços com Spring** da Alura e parte de um cenário onde a aplicação **Alura Food** era originalmente um **monólito**, passando por um processo de decomposição em microsserviços.
@@ -87,9 +87,7 @@ Não representa um sistema pronto para produção sem ajustes adicionais de segu
 ---
 
 ## 📄 Licença
-```sEste projeto utiliza o conteúdo educacional da Alura, respeitando sua licença educacional
-O código foi desenvolvido por **Matheus Martins** durante o processo de aprendizado, com base nos cursos da plataforma Alura.
 ```
-
-
+Este projeto utiliza o conteúdo educacional da Alura, respeitando sua licença educacional
+O código foi desenvolvido por **Matheus Martins** durante o processo de aprendizado, com base nos cursos da plataforma Alura.
 ```
