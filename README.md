@@ -1,14 +1,17 @@
 ![Microsserviços com Java e Spring](https://user-images.githubusercontent.com/66698429/169815319-20640ad4-cda0-4868-9728-d380c5fcc799.png)
 
 # Microsserviços com Java e Spring Boot – Alura Food
-<p>
-Projeto desenvolvido por **Matheus Martins** como parte dos estudos em **arquitetura de microsserviços com Java e Spring**, baseado no curso **“Microsserviços na prática: implementando com Java e Spring”** da Alura.
-</p> 
+
+Projeto desenvolvido por **Matheus Martins** como parte dos estudos em **arquitetura de microsserviços com Java e Spring Boot**, baseado no curso **Microsserviços na prática implementando com Java e Spring** da Alura.
+
+O foco deste projeto é entender como microsserviços se comunicam, como são organizados e como o ecossistema Spring ajuda a resolver problemas reais de sistemas distribuídos.
+
 ---
-##  Objetivos do Projeto
-<p>
+
+## Objetivos do Projeto
+
 Aplicar, na prática, os principais conceitos de **arquitetura de microsserviços** utilizando o ecossistema Spring.
-</p> <br>
+
 Principais objetivos:
 ```
 - Decompor um sistema monolítico em microsserviços
