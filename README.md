@@ -31,9 +31,10 @@ Principais objetivos:
 ```
 ---
 # MS com Docker e Docker Compose
-
-Este projeto demonstra, na prática, como configurar um ambiente completo de **microsserviços com Java e Spring Boot**, utilizando **Docker**, **Docker Hub** e **Docker Compose**.
+```
+Este projeto demonstra, na prática, como configurar um ambiente completo de microsserviços com Java e Spring Boot, utilizando Docker, Docker Hub e Docker Compose.
 O objetivo é mostrar o fluxo real usado em projetos profissionais, desde o build das imagens até a execução integrada de todos os serviços.
+```
 ---
 ## Arquitetura do Projeto
 
@@ -111,11 +112,12 @@ usuario-docker/nome-do-servico:versao
 Repita esse processo para todos os microsserviços.
 
 Login no Docker Hub
-Antes de enviar as imagens, faça login no Docker Hub:
-docker login
-Informe seu usuário e senha do Docker Hub.
-Push das imagens para o Docker Hub
+- Antes de enviar as imagens, faça login no Docker Hub:
+- docker login
+- Informe seu usuário e senha do Docker Hub.
+- Push das imagens para o Docker Hub
 Após o build, envie as imagens para o Docker Hub:
+
 ```
 docker push martnsdev/server-eureka:1.0
 docker push martnsdev/mysql-ms:1.0
@@ -207,8 +209,11 @@ networks:
     driver: bridge
 ```
 Subindo o ambiente completo
+
 Com todas as imagens já publicadas no Docker Hub, execute:
+```
 docker compose up
+```
 O Docker irá baixar as imagens automaticamente e iniciar todos os serviços.
 
 Portas dos serviços
