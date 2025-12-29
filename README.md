@@ -1,383 +1,201 @@
-# Microsserviços com Java e Spring Boot – Alura Food
+# Alura Food - Microsserviços com Spring Boot
 
-O foco deste projeto é compreender, na prática, como microsserviços se comunicam entre si, como são organizados e como o ecossistema Spring ajuda a resolver desafios reais de sistemas distribuídos.
+Sistema de gestão de pedidos e pagamentos desenvolvido com arquitetura de microsserviços, utilizando Java, Spring Boot e Spring Cloud. O projeto demonstra a decomposição de um monólito em serviços independentes, comunicação entre microsserviços, service discovery, API gateway e containerização com Docker.
 
----
+## 📋 Sobre o Projeto
 
-## 🚀 Tecnologias Utilizadas
-```
-Java 17+
-Spring Boot
-Spring Cloud (Eureka, Gateway)
-Resilience4J
-MySQL
-Maven
-Git e GitHub
-Docker
-```
----
+Este projeto foi desenvolvido como parte da formação de Microsserviços da Alura, com o objetivo de aplicar conceitos fundamentais de sistemas distribuídos em um cenário real. A aplicação gerencia pedidos e pagamentos de forma desacoplada, com cada serviço possuindo sua própria responsabilidade e banco de dados.
 
-## 🎯 Objetivos do Projeto
+## 🏗️ Arquitetura
 
-Aplicar, na prática, os principais conceitos de arquitetura de microsserviços utilizando o ecossistema Spring.
+O sistema é composto por cinco componentes principais:
 
-Principais objetivos:
-```
-Decompor um sistema monolítico em microsserviços
-Garantir responsabilidade única por serviço
-Implementar comunicação síncrona entre serviços
-Utilizar Service Discovery e API Gateway
-Trabalhar tolerância a falhas e resiliência
-```
----
+- **Eureka Server**: Service Discovery para registro e descoberta automática dos microsserviços
+- **API Gateway**: Ponto único de entrada, centraliza o roteamento das requisições
+- **Microsserviço de Pedidos**: Gerencia pedidos e se comunica com o serviço de pagamentos
+- **Microsserviço de Pagamentos**: Processa pagamentos de forma independente
+- **MySQL**: Banco de dados compartilhado (pode ser isolado por serviço em ambientes de produção)
 
-# Microsserviços com Docker e Docker Compose
+Todos os serviços são containerizados e comunicam-se através de uma rede Docker interna.
 
-Este projeto demonstra, na prática, como configurar um ambiente completo de microsserviços com Java e Spring Boot, utilizando Docker, Docker Hub e Docker Compose.
-O objetivo é mostrar o fluxo real utilizado em projetos profissionais, desde o build das imagens até a execução integrada de todos os serviços.
+## 🛠️ Tecnologias
 
----
+- **Java 17**
+- **Spring Boot** - Framework base dos microsserviços
+- **Spring Cloud Netflix Eureka** - Service Discovery
+- **Spring Cloud Gateway** - API Gateway
+- **Resilience4J** - Circuit Breaker e resiliência
+- **MySQL** - Banco de dados
+- **Docker & Docker Compose** - Containerização e orquestração
+- **Maven** - Gerenciamento de dependências
 
-## 🧱 Arquitetura do Projeto
-
-A aplicação é composta por:
-```
-Eureka Server para Service Discovery
-MySQL como banco de dados
-Microsserviço de pedidos
-Microsserviço de pagamentos
-API Gateway como ponto único de entrada
-```
-Todos os serviços rodam em containers Docker e se comunicam por meio de uma rede interna.
----
-
-## 📦 Pré-requisitos
-
-Antes de começar, é necessário ter instalado:
-```
-Docker
-Docker Compose
-Git
-Java 17
-Maven
-```
-Verifique as instalações com:
+## 📁 Estrutura do Repositório
 
 ```
-docker --version
-docker compose version
-git --version
-java --version
+.
+├── eureka-server/          # Service Discovery
+├── gateway/                # API Gateway
+├── pedidos-ms/             # Microsserviço de Pedidos
+├── pagamentos-ms/          # Microsserviço de Pagamentos
+├── docker-compose.yml      # Orquestração dos containers
+└── README.md
 ```
 
----
+Cada microsserviço contém seu próprio `Dockerfile` e configurações independentes.
 
-## 🔨 Build da Aplicação Spring Boot
+## 🚀 Como Executar
 
-Cada microsserviço deve gerar seu próprio arquivo JAR antes da criação da imagem Docker.
+### Pré-requisitos
 
-Na raiz de cada serviço, executei:
+- Docker e Docker Compose instalados
+- Git
+- (Opcional) Java 17 e Maven, caso queira buildar localmente
+
+### Executando com Docker Compose
+
+Clone o repositório e execute:
+
+```bash
+docker compose up
 ```
+
+O Docker irá baixar automaticamente as imagens publicadas no Docker Hub e iniciar todos os serviços.
+
+### Build Local (Opcional)
+
+Se preferir buildar as imagens localmente, execute em cada microsserviço:
+
+```bash
 ./mvnw clean package
+docker build -t nome-da-imagem:versao .
 ```
 
-Ao final do processo, o JAR estará disponível na pasta `target`.
+## 🌐 Endpoints
 
----
+Após iniciar os containers, os serviços estarão disponíveis em:
 
-## 🐳 Dockerfile Padrão dos Serviços
+- **Eureka Server**: http://localhost:8081
+- **API Gateway**: http://localhost:8080
+- **Pedidos MS**: http://localhost:8082
+- **Pagamentos MS**: http://localhost:8083
 
-Cada microsserviço utiliza um Dockerfile simples como base:
+### Exemplo de Requisição
+
+Todas as requisições devem ser feitas através do API Gateway:
+
+```bash
+# Listar pedidos
+curl http://localhost:8080/pedidos-ms/pedidos
+
+# Criar pagamento
+curl -X POST http://localhost:8080/pagamentos-ms/pagamentos \
+  -H "Content-Type: application/json" \
+  -d '{"valor": 100.00, "nome": "João Silva"}'
 ```
+
+## 🐳 Docker
+
+### Imagens Publicadas
+
+As imagens Docker estão disponíveis no Docker Hub:
+
+- `martnsdev/server-eureka:1.0`
+- `martnsdev/gateway-ms:1.0`
+- `martnsdev/pedidos-ms:1.5`
+- `martnsdev/pagamentos-ms:1.0`
+- `martnsdev/mysql-ms:1.0`
+
+### Dockerfile Multi-Stage
+
+Cada serviço utiliza um Dockerfile multi-stage para otimizar o tamanho da imagem:
+
+```dockerfile
 # STAGE 1 - Build
 FROM eclipse-temurin:17-jdk AS builder
-
 WORKDIR /build
-
-# Copia só o que muda menos primeiro (cache do Docker)
-COPY pom.xml .
-COPY mvnw .
+COPY pom.xml mvnw .
 COPY .mvn .mvn
-
-# Dá permissão de execução pro Maven Wrapper
 RUN chmod +x mvnw
-
-# Baixa dependências (cache)
-RUN ./mvnw -B -q dependency:go-offline
-
-# Agora sim o código
+RUN ./mvnw -B dependency:go-offline
 COPY src src
-
-# Gera o jar
-RUN ./mvnw -B -q clean package -DskipTests
+RUN ./mvnw -B clean package -DskipTests
 
 # STAGE 2 - Runtime
 FROM eclipse-temurin:17-jre-alpine
-
-# Usuário não-root (obrigatório em ambiente sério)
 RUN addgroup -S spring && adduser -S spring -G spring
-
 WORKDIR /app
-
-# Copia só o jar final
 COPY --from=builder /build/target/*.jar app.jar
-
 EXPOSE 8080
-
 USER spring
-
-# JVM preparada para container
 ENTRYPOINT ["java","-XX:+UseContainerSupport","-XX:MaxRAMPercentage=75","-jar","app.jar"]
 ```
 
-Esse Dockerfile cria uma imagem com Java 17 e executa a aplicação Spring Boot.
+### Comunicação entre Containers
 
----
+**Importante**: Dentro do Docker, os microsserviços não se comunicam usando `localhost`. Eles utilizam o nome do container definido no `docker-compose.yml`.
 
-## 📦 Build da Imagem Docker
+Exemplo de configuração de variável de ambiente:
 
-Com o JAR gerado, criei uma imagem Docker do serviço.
-
-Exemplo para o microsserviço de pedidos:
-```
-docker build -t martnsdev/pedidos-ms:1.0 .
-```
-Utilizei o seu próprio usuário do Docker Hub.
-![Docker Hub - Repositorios](Img/Docker-Repositories.png)
-Padrão adotado para nomear as imagens:
-```
-usuario-docker/nome-do-servico:versao
-```
-
-Repeti esse processo para todos os microsserviços.
-
----
-
-## 🔐 Login no Docker Hub
-
-Antes de enviar as imagens, faça login no Docker Hub:
-```
-docker login
-```
-Informei meu usuário e senha.
-Precisei logar com GitHub,então criei um token de acesso: 
-![Logar no Docker — GitHub](Img/Login-dockerHub-with-github.png)
-Read & Write.
-
----
-
-## 🚀 Push das Imagens para o Docker Hub
-
-Após o build, enviei as imagens:
-```
-docker push martnsdev/server-eureka:1.0
-docker push martnsdev/mysql-ms:1.0
-docker push martnsdev/pedidos-ms:1.5
-docker push martnsdev/pagamentos-ms:1.0
-docker push martnsdev/gateway-ms:1.0
-```
-Após o push, qualquer máquina poderá baixar essas imagens.
-
----
-
-## 🧩 Docker Compose do Projeto
-
-O Docker Compose é responsável por subir todos os serviços conectados na mesma rede.
-
-services:
-```
-server:
-image: martnsdev/server-eureka:1.0
-container_name: server
-ports:
-- "8081:8080"
-networks:
-- alurafood-net
-
-mysql:
-image: martnsdev/mysql-ms:1.0
-container_name: mysql-ms
+```yaml
 environment:
-MYSQL_ROOT_PASSWORD: 5517
-MYSQL_DATABASE: alurafood
-ports:
-- "3306:3306"
-volumes:
-- mysql_data:/var/lib/mysql
-networks:
-- alurafood-net
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8080/eureka
+```
 
-pedidos:
-image: martnsdev/pedidos-ms:1.5
-container_name: pedidos-ms
-depends_on:
-- mysql
-- server
+## 🛡️ Resiliência
+
+O projeto implementa padrões de resiliência utilizando Resilience4J:
+
+- **Circuit Breaker**: Previne falhas em cascata
+- **Fallback**: Respostas alternativas em caso de falha
+- **Retry**: Tentativas automáticas de requisições
+
+## 🔧 Configuração
+
+### Variáveis de Ambiente
+
+Os microsserviços são configurados via variáveis de ambiente no `docker-compose.yml`:
+
+```yaml
 environment:
-SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/alurafood
-SPRING_DATASOURCE_USERNAME: root
-SPRING_DATASOURCE_PASSWORD: 5517
-EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8080/eureka
-ports:
-- "8082:8080"
-networks:
-- alurafood-net
-
-pagamentos:
-image: martnsdev/pagamentos-ms:1.0
-container_name: pagamentos-ms
-depends_on:
-- mysql
-- server
-environment:
-SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/alurafood
-SPRING_DATASOURCE_USERNAME: root
-SPRING_DATASOURCE_PASSWORD: 5517
-EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8080/eureka
-ports:
-- "8083:8080"
-networks:
-- alurafood-net
-
-gateway:
-image: martnsdev/gateway-ms:1.0
-container_name: gateway-ms
-depends_on:
-- server
-- pedidos
-- pagamentos
-environment:
-EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8080/eureka
-ports:
-- "8080:8080"
-networks:
-- alurafood-net
-
-volumes:
-mysql_data:
-
-networks:
-alurafood-net:
-driver: bridge
-```
----
-
-## ▶️ Subindo o Ambiente Completo
-
-Com todas as imagens publicadas no Docker Hub, execute:
-
-```
-docker compose up
-```
-![Logar no docker — GitHub](Img/Docker-compose.png)
-O Docker irá baixar as imagens automaticamente e iniciar todos os serviços.
-
----
-
-## 🌐 Portas dos Serviços
-
-Eureka Server:
-```
-http://localhost:8081
-```
-API Gateway:
-```
-http://localhost:8080
-```
-Pedidos:
-```
-http://localhost:8082
-```
-Pagamentos:
-```
-http://localhost:8083
-```
-Após rodar o projeto, abra o EurekaServer:
-```
-http://localhost:8081
-```
-![Eureka Server](Img/Eureka-server.png)
-
----
-
-## ⏹️ Parando o Ambiente
-
-Para parar os containers:
-```
-docker compose down
+  SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/alurafood
+  SPRING_DATASOURCE_USERNAME: root
+  SPRING_DATASOURCE_PASSWORD: 5517
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://server:8080/eureka
 ```
 
-Para remover também os volumes e dados do banco:
-```
-docker compose down -v
-```
----
+## 📚 Aprendizados
 
-## ⚠️ Observação Importante
+Este projeto aborda:
 
-Dentro do Docker, os microsserviços não se comunicam usando `localhost`.
-Eles utilizam o nome do contêiner definido no Docker Compose.
+- Decomposição de monólitos em microsserviços
+- Comunicação síncrona entre serviços
+- Service Discovery com Eureka
+- Roteamento centralizado com API Gateway
+- Balanceamento de carga
+- Tratamento de falhas e resiliência
+- Containerização e orquestração com Docker
 
-Esse é um dos pontos mais importantes em ambientes containerizados e costuma gerar erros em quem está começando.
+## ⚠️ Nota
 
----
+Este projeto foi desenvolvido para fins educacionais. Para ambientes de produção, considere implementar:
 
-## 🧩 Arquitetura Implementada
+- Autenticação e autorização (OAuth2, JWT)
+- Observabilidade (logs centralizados, métricas, tracing)
+- Separação de bancos de dados por serviço
+- Secrets management
+- CI/CD pipeline
+- Health checks e liveness probes
 
-###🔹Microsserviço de Pagamentos
-```
-API REST com Spring Boot
-Banco de dados próprio utilizando MySQL
-Responsável pelo processamento de pagamentos
-```
-###🔹Microsserviço de Pedidos
-```
-Comunicação síncrona com o serviço de pagamentos
-Balanceamento de carga entre múltiplas instâncias
-Integração via Service Discovery
-```
-###🔹Service Discovery
-```
-Implementado com Eureka (Spring Cloud Netflix)
-Registro e descoberta automática dos microsserviços
-```
-###🔹API Gateway
-```
-Implementado com Spring Cloud Gateway
-Ponto único de entrada da aplicação
-Centraliza o roteamento das requisições
-```
-###🔹Resiliência
-```
-Circuit Breaker e Fallback
-Utilização do Resilience4J
-Tratamento de falhas entre serviços
-```
----
+## 📖 Recursos Adicionais
 
-## 📚 Contexto do Projeto
-
-O projeto faz parte da formação de Microsserviços com Spring da Alura e parte de um cenário onde a aplicação Alura Food era originalmente um monólito, passando por um processo de decomposição em microsserviços.
-
-Cursos relacionados:
-- [Formação Spring Framework](https://cursos.alura.com.br/formacao-spring-framework)
-- [Microsserviços: padrões de projeto](https://cursos.alura.com.br/course/microsservicos-padroes-projeto)
-- [Fundamentos de Microsserviços](https://cursos.alura.com.br/course/fundamentos-microsservicos-aprofundando-conceitos)
-- [Microsserviços na prática: entendendo a tomada de decisões](https://cursos.alura.com.br/course/Microsservicos-pratica-tomada-decisoes)
-
-![Microsserviços com Java e Spring](https://user-images.githubusercontent.com/66698429/169815319-20640ad4-cda0-4868-9728-d380c5fcc799.png)
-
----
-
-## ⚠️ Aviso
-```
-Este projeto foi desenvolvido exclusivamente para fins de estudo.
-Não representa um sistema pronto para produção sem ajustes adicionais de segurança, observabilidade e infraestrutura.
-```
----
+- [Formação Spring Framework - Alura](https://cursos.alura.com.br/formacao-spring-framework)
+- [Microsserviços: padrões de projeto - Alura](https://cursos.alura.com.br/course/microsservicos-padroes-projeto)
+- [Spring Cloud Documentation](https://spring.io/projects/spring-cloud)
 
 ## 📄 Licença
-```
-Este projeto utiliza conteúdo educacional da Alura, respeitando sua licença.
-O código foi desenvolvido por Matheus Martins durante o processo de aprendizado.
-```
+
+Projeto desenvolvido durante a formação da Alura. Código criado por [Matheus Martins](https://github.com/martnsdev).
+
+---
+
+⭐ Se este projeto foi útil para você, considere deixar uma estrela!
