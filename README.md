@@ -194,7 +194,11 @@ Este projeto foi desenvolvido para fins educacionais. Para ambientes de produç�
 
 ## 📄 Licença
 
-Projeto desenvolvido durante a formação da Alura. Código criado por [Matheus Martins](https://github.com/martnsdev).
+Projeto desenvolvido durante a formação da Alura. Código criado por Matheus Martins
+
+- LinkedIn: [@matheusmartnsdev](https://www.linkedin.com/in/matheusmartnsdev/)
+- GitHub: [@MartnsDev](https://github.com/MartnsDev)
+
 
 ---
 
